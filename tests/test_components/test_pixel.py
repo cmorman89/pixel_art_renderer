@@ -4,7 +4,6 @@ Tests the Pixel module.
 
 from unittest.mock import Mock
 from app.components.pixel import Pixel
-from app.renderers.color import Color
 
 
 def test_pixel_construction():
@@ -23,13 +22,6 @@ def test_pixel_construction():
     pixel = Pixel(x_pos=-5, y_pos=-5, color=None)
     assert pixel.position == (0, 0)
     assert pixel.color is None
-
-
-# def test_set_color():
-#     pixel = Pixel()
-#     color = Color(255, 0, 0)  # Assuming Color takes RGB values
-#     pixel.set_color(color)
-#     assert pixel.color == color
 
 
 def test_render():
