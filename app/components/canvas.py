@@ -1,0 +1,1 @@
+"Canvas holds layers. It has a DEFAULT layer that it stores added pixels to."
