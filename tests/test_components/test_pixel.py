@@ -1,5 +1,9 @@
-from app.components.pixel import Pixel
+"""
+Tests the Pixel module.
+"""
+
 from unittest.mock import Mock
+from app.components.pixel import Pixel
 from app.renderers.color import Color
 
 
