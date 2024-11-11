@@ -33,18 +33,8 @@ class TerminalRenderer(Renderer):
             terminal_x_scale (int): The factor to scale the width-related calculations to compensate
                 for differences in column and row size in the terminal. Defaults to 3.
         """
-        self.__terminal_x_scale = terminal_x_scale
+        self._set_terminal_x_scale(terminal_x_scale)
         self._render_char = "█"
-
-    def render_pixel(self, pixel: Pixel):
-        """Renders a single pixel to the terminal at a given location by printing the render
-        character
-
-        Args:
-            pixel: The Pixel object to render to the terminal.
-        """
-        self._cursor_locator(position=pixel.position)
-        print(self._render_char * self.__terminal_x_scale)
 
     @property
     def get_terminal_x_scale(self) -> int:
@@ -62,6 +52,16 @@ class TerminalRenderer(Renderer):
             scale (int): The scale to
         """
         self.__terminal_x_scale = max(1, scale)
+
+    def render_pixel(self, pixel: Pixel):
+        """Renders a single pixel to the terminal at a given location by printing the render
+        character
+
+        Args:
+            pixel: The Pixel object to render to the terminal.
+        """
+        self._cursor_locator(position=pixel.position)
+        print(self._render_char * self.__terminal_x_scale)
 
     def _cursor_locator(self, position: Tuple[int, int]):
         """Places the cursor in the correct position in the terminal to render the pixel later.
