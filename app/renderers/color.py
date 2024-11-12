@@ -50,3 +50,8 @@ class Color(Enum):
 
     # Reset code
     RESET = "\033[0m"
+
+    # Alias colors
+    PEACH = BRIGHT_RED
+    LIME = BRIGHT_GREEN
+    BROWN = YELLOW
