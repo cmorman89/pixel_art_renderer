@@ -614,7 +614,7 @@ if __name__ == "__main__":
     for x, y, color in all_coordinates:
         pixel = Pixel(x, y, color=Color[color.upper()])
         pixel.render(color_renderer)
-        time.sleep(0.1)
+        time.sleep(0.02)
     print("\n\n")
     print("The Hero.".center(18 * terminal_x_scale))
     print("\n\n")
