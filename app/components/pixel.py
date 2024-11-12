@@ -43,6 +43,22 @@ class Pixel(RenderableComponent):
         self._set_position(x_pos=x_pos, y_pos=y_pos)
         self.set_color(color=color)
 
+    def get_position(self) -> Tuple[int, int]:
+        """Provides the position in (x, y) of the pixel.
+
+        Returns:
+            Tuple[int, int]: The relative (x, y) position of the pixel.
+        """
+        return self.position
+
+    def get_color(self) -> Optional[Color]:
+        """Provides the `Color` enum obj of the pixel.
+
+        Returns:
+            Optional[Color]: Returns the Color object of the pixel or None if not set.
+        """
+        return self.color
+
     def _set_position(self, x_pos: int = 0, y_pos: int = 0):
         """Updates the relative position of the pixel to a non-negative integer.
 
