@@ -1,3 +1,4 @@
+import time
 from app.components.pixel import Pixel
 from app.renderers.color import Color
 from app.renderers.terminal_renderer import TerminalRenderer
@@ -610,12 +611,10 @@ if __name__ == "__main__":
     for coordinate in coordinates:
         pixel = Pixel(coordinate[0], coordinate[1])
         pixel.render(renderer)
-    for coordinate in coordinates:
-        pixel = Pixel(coordinate[0], coordinate[1], color=Color.BRIGHT_YELLOW)
-        pixel.render(color_renderer)
     for x, y, color in all_coordinates:
         pixel = Pixel(x, y, color=Color[color.upper()])
         pixel.render(color_renderer)
+        time.sleep(0.1)
     print("\n\n")
     print("The Hero.".center(18 * terminal_x_scale))
     print("\n\n")
