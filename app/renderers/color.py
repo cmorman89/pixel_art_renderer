@@ -53,5 +53,8 @@ class Color(Enum):
 
     # Alias colors
     PEACH = BRIGHT_RED
+    PINK = BRIGHT_RED
     LIME = BRIGHT_GREEN
     BROWN = YELLOW
+    GRAY = BRIGHT_BLACK
+    PURPLE = BLUE
