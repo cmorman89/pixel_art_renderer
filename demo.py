@@ -3,6 +3,8 @@ from app.components.pixel import Pixel
 from app.renderers.color import Color
 from app.renderers.terminal_renderer import TerminalRenderer
 from app.renderers.color_terminal_renderer import ColorTerminalRenderer
+from app.data.pixel_matrix import PixelMatrix
+from app.data.pixel_matrix_manager import PixelMatrixManager
 
 if __name__ == "__main__":
     terminal_x_scale = 3
@@ -2191,6 +2193,10 @@ if __name__ == "__main__":
     #     color = Color[color.upper()] if color else None
     #     pixel = Pixel(x, y, color=color)
     #     pixel.render(color_renderer)
+    pixel_matrix = PixelMatrix(PixelMatrixManager())
+    for x, y, color in ls1:
+        pixel_matrix.add_pixel(Pixel(x, y, color=Color[color.upper()]))
+
     infinite = True
     while infinite:
         for i, scene in enumerate([ls1, ls2, ls3]):
