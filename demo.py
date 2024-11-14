@@ -2209,5 +2209,5 @@ if __name__ == "__main__":
             print("\n\n")
             if i == 0:
                 time.sleep(0.2)
-            time.sleep(0.05)
+            time.sleep(0.1)
         time.sleep(1)
