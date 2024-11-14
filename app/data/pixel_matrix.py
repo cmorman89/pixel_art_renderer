@@ -11,9 +11,9 @@ Classes:
 
 from __future__ import annotations
 from typing import Optional, List, TYPE_CHECKING, Union
-from app.components.pixel import Pixel
 
 if TYPE_CHECKING:
+    from app.components.pixel import Pixel
     from app.data.pixel_matrix_manager import PixelMatrixManager
 
 
