@@ -120,19 +120,25 @@ class PixelMatrix:
     @property
     def width(self) -> int:
         """
-        Provides the width of the matrix.
+        Provides the width of the matrix. Measured to ensure integrity.
 
         Returns:
             int: The width of the matrix.
+
+        Note:
+            Cache into internal attribute if performance becomes a problem.
         """
         return len(self.matrix[0])
 
     @property
     def height(self) -> int:
         """
-        Provides the height of the matrix.
+        Provides the height of the matrix. Measured to ensure integrity.
 
         Returns:
             int: The height of the matrix.
+
+        Note:
+            Cache into internal attribute if performance becomes a problem.
         """
         return len(self.matrix)

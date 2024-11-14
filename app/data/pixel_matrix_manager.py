@@ -130,7 +130,7 @@ class PixelMatrixManager:
         self, pixel_matrix: PixelMatrix, pixel_x_idx: int, pixel_y_idx: int
     ):
         """
-
+        Checks if the given indices are inside the PixelMatrix, and returns an error if it is not.
 
         Args:
             pixel_matrix (PixelMatrix): The PixelMatrix to search.
@@ -171,6 +171,8 @@ class PixelMatrixManager:
         pixel_row = pixel_y_idx + 1
         self._expand_matrix_cols(pixel_matrix=pixel_matrix, pixel_col=pixel_col)
         self._expand_matrix_rows(pixel_matrix=pixel_matrix, pixel_row=pixel_row)
+        self._contract_matrix_rows(pixel_matrix=pixel_matrix, pixel_row=pixel_row)
+        self._contract_matrix_cols(pixel_matrix=pixel_matrix, pixel_col=pixel_col)
 
     def _expand_matrix_cols(self, pixel_matrix: PixelMatrix, pixel_col: int):
         """
@@ -199,5 +201,34 @@ class PixelMatrixManager:
             for _ in range(pixel_row - matrix_height):
                 pixel_matrix.matrix.append([None] * matrix_width)
 
-    def _contract_matrix(self):
-        pass
+    def _contract_matrix_rows(self, pixel_matrix: PixelMatrix, pixel_row: int):
+        """
+        Truncates unneeded empty rows the upper bound of the matrix. Checks if the modified pixel
+        is at the upper boundary (x or y) before looking for blank columns and rows to contract.
+
+        Args:
+            pixel_matrix (PixelMatrix): The pixel matrix to check/contract.
+            pixel_row (int): The row of the updated pixel.
+        """
+        if pixel_matrix.height == pixel_row:
+            while pixel_matrix.matrix and all(
+                pixel is None for pixel in pixel_matrix.matrix[-1]
+            ):
+                pixel_matrix.matrix.pop()
+
+    def _contract_matrix_cols(self, pixel_matrix: PixelMatrix, pixel_col: int):
+        """
+        Truncates unneeded empty columns the upper bound of the matrix. Checks if the modified
+        pixel is at the upper boundary (x or y) before looking for blank columns and rows to
+        contract.
+
+        Args:
+            pixel_matrix (PixelMatrix): The pixel matrix to check/contract.
+            pixel_col (int): The column of the updated pixel.
+        """
+        if pixel_matrix.width == pixel_col:
+            while pixel_matrix.width > 0 and all(
+                row[-1] is None for row in pixel_matrix.matrix
+            ):
+                for row in pixel_matrix.matrix:
+                    row.pop()
