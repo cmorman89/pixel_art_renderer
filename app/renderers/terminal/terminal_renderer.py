@@ -69,8 +69,8 @@ class TerminalRenderer(Renderer):
         print(self._render_char * self.__terminal_x_scale)
 
     def render_pixelmatrix(self, pixel_matrix: PixelMatrix):
-         """
-         Renders a PixelMatrix to the terminal
+        """
+        Renders a PixelMatrix to the terminal
 
         Args:
             pixel: The Pixel object to render to the terminal.
