@@ -75,6 +75,10 @@ class TerminalRenderer(Renderer):
         Args:
             pixel: The Pixel object to render to the terminal.
         """
+        for row in pixel_matrix.matrix:
+            for pixel in row:
+                if pixel:
+                    pixel.render(renderer=self)
 
     def _cursor_locator(self, position: Tuple[int, int]):
         """

@@ -5,6 +5,7 @@ from app.renderers.terminal.terminal_renderer import TerminalRenderer
 from app.renderers.terminal.color_terminal_renderer import ColorTerminalRenderer
 from app.data.pixel_matrix import PixelMatrix
 from app.data.pixel_matrix_manager import PixelMatrixManager
+from app.components.layer import Layer
 
 if __name__ == "__main__":
     terminal_x_scale = 3
@@ -2197,17 +2198,22 @@ if __name__ == "__main__":
     for x, y, color in ls1:
         pixel_matrix.add_pixel(Pixel(x, y, color=Color[color.upper()]))
 
-    infinite = True
-    while infinite:
-        for i, scene in enumerate([ls1, ls2, ls3]):
-            print("\033[2J", end="")
-            for x, y, color in scene:
-                pixel = Pixel(x, y, color=Color[color.upper()])
-                pixel.render(color_renderer)
-            print("\n\n")
-            print("The Hero.".center(18 * terminal_x_scale))
-            print("\n\n")
-            if i == 0:
-                time.sleep(0.2)
-            time.sleep(0.1)
-        time.sleep(1)
+    layer = Layer(name="Layer", pixel_matrix=pixel_matrix)
+
+    layer.render(TerminalRenderer())
+    time.sleep(1)
+    layer.render(ColorTerminalRenderer())
+    # infinite = True
+    # while infinite:
+    #     for i, scene in enumerate([ls1, ls2, ls3]):
+    #         print("\033[2J", end="")
+    #         for x, y, color in scene:
+    #             pixel = Pixel(x, y, color=Color[color.upper()])
+    #             pixel.render(color_renderer)
+    #         print("\n\n")
+    #         print("The Hero.".center(18 * terminal_x_scale))
+    #         print("\n\n")
+    #         if i == 0:
+    #             time.sleep(0.2)
+    #         time.sleep(0.1)
+    #     time.sleep(1)

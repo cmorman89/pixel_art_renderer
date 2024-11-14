@@ -26,7 +26,7 @@ class ColorTerminalRenderer(TerminalRenderer):
         Inherits from and delegates pixel rendering to the `Renderer` object `TerminalRenderer`.
     """
 
-    def __init__(self, terminal_x_scale: int):
+    def __init__(self, terminal_x_scale: int = 3):
         """
         Initializes the renderer by calling the parent `TerminalRenderer` constructor and
         setting up the color history buffer.
