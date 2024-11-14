@@ -4,8 +4,8 @@ Color Terminal Renderer Module
 
 from typing import Optional
 from app.components.pixel import Pixel
-from app.renderers.color import Color
-from app.renderers.terminal_renderer import TerminalRenderer
+from app.renderers.utils.color import Color
+from app.renderers.terminal.terminal_renderer import TerminalRenderer
 
 
 class ColorTerminalRenderer(TerminalRenderer):

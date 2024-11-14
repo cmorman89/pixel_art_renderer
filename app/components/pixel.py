@@ -12,7 +12,7 @@ Classes:
 from __future__ import annotations
 from typing import Optional, TYPE_CHECKING, Tuple
 from app.components.renderable_component import RenderableComponent
-from app.renderers.color import Color
+from app.renderers.utils.color import Color
 
 # Break circular dependencies caused by type checking.
 if TYPE_CHECKING:

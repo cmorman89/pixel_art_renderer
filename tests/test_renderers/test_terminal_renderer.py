@@ -1,5 +1,5 @@
 import pytest
-from app.renderers.terminal_renderer import TerminalRenderer
+from app.renderers.terminal.terminal_renderer import TerminalRenderer
 from app.components.pixel import Pixel
 
 

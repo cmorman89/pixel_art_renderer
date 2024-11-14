@@ -12,6 +12,7 @@ Classes:
 
 from typing import Tuple
 from app.components.pixel import Pixel
+from app.data.pixel_matrix import PixelMatrix
 from app.renderers.renderer import Renderer
 
 
@@ -26,7 +27,8 @@ class TerminalRenderer(Renderer):
     """
 
     def __init__(self, terminal_x_scale: int = 3):
-        """Constructs the renderer object, setting the x scale factor and the character to render
+        """
+        Constructs the renderer object, setting the x scale factor and the character to render
         for each pixel.
 
         Args:
@@ -38,7 +40,8 @@ class TerminalRenderer(Renderer):
 
     @property
     def get_terminal_x_scale(self) -> int:
-        """Get the terminal x scale
+        """
+        Get the terminal x scale
 
         Returns:
             int: The x-scaling factor used by the renderer.
@@ -46,7 +49,8 @@ class TerminalRenderer(Renderer):
         return self.__terminal_x_scale
 
     def _set_terminal_x_scale(self, scale: int):
-        """Safely sets the terminal x_scale. Ensures a min of 1 character to prevent blank output.
+        """
+        Safely sets the terminal x_scale. Ensures a min of 1 character to prevent blank output.
 
         Args:
             scale (int): The scale to
@@ -54,7 +58,8 @@ class TerminalRenderer(Renderer):
         self.__terminal_x_scale = max(1, scale)
 
     def render_pixel(self, pixel: Pixel):
-        """Renders a single pixel to the terminal at a given location by printing the render
+        """
+        Renders a single pixel to the terminal at a given location by printing the render
         character
 
         Args:
@@ -63,8 +68,18 @@ class TerminalRenderer(Renderer):
         self._cursor_locator(position=pixel.position)
         print(self._render_char * self.__terminal_x_scale)
 
+    def render_pixelmatrix(self, pixel_matrix: PixelMatrix):
+         """
+         Renders a PixelMatrix to the terminal
+
+        Args:
+            pixel: The Pixel object to render to the terminal.
+        """
+
     def _cursor_locator(self, position: Tuple[int, int]):
-        """Places the cursor in the correct position in the terminal to render the pixel later.
+        """
+        Places the cursor in the correct position in the terminal to render the pixel in another
+         step.
 
         Args:
             Position (Tuple[int, int]): The new (x, y) position to place the terminal cursor.

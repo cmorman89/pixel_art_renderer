@@ -1,8 +1,8 @@
 import time
 from app.components.pixel import Pixel
-from app.renderers.color import Color
-from app.renderers.terminal_renderer import TerminalRenderer
-from app.renderers.color_terminal_renderer import ColorTerminalRenderer
+from app.renderers.utils.color import Color
+from app.renderers.terminal.terminal_renderer import TerminalRenderer
+from app.renderers.terminal.color_terminal_renderer import ColorTerminalRenderer
 from app.data.pixel_matrix import PixelMatrix
 from app.data.pixel_matrix_manager import PixelMatrixManager
 
