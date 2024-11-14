@@ -39,8 +39,8 @@ class PixelMatrixManager:
         """
         pixel_x_idx = pixel.get_position()[0]
         pixel_y_idx = pixel.get_position()[1]
-        self._resize_matrix(
-            pixel_matrix=pixel_matrix, pixel_x_idx=pixel_x_idx, pixel_y_idx=pixel_y_idx
+        self._expand_matrix(
+            pixel_matrix=pixel_matrix, pixel_col=pixel_x_idx + 1, pixel_row=pixel_y_idx + 1
         )
         pixel_matrix.matrix[pixel_y_idx][pixel_x_idx] = pixel
 
@@ -91,10 +91,10 @@ class PixelMatrixManager:
         )
 
         # Step 2: Resize the PixelMatrix if needed
-        self._resize_matrix(
+        self._expand_matrix(
             pixel_matrix=pixel_matrix,
-            pixel_x_idx=pixel_x_idx_new,
-            pixel_y_idx=pixel_y_idx_new,
+            pixel_col=pixel_x_idx_new + 1,
+            pixel_row=pixel_y_idx_new + 1,
         )
 
         # Step 3: Set the Pixel in the new position in the matrix
@@ -122,8 +122,11 @@ class PixelMatrixManager:
             pixel_matrix=pixel_matrix, pixel_x_idx=pixel_x_idx, pixel_y_idx=pixel_y_idx
         )
         pixel_matrix.matrix[pixel_y_idx][pixel_x_idx] = None
-        self._resize_matrix(
-            pixel_matrix=pixel_matrix, pixel_x_idx=pixel_x_idx, pixel_y_idx=pixel_y_idx
+
+        self._contract_matrix(
+            pixel_matrix=pixel_matrix,
+            pixel_col=pixel_x_idx + 1,
+            pixel_row=pixel_y_idx + 1,
         )
 
     def _validate_pixel_location(
@@ -169,8 +172,36 @@ class PixelMatrixManager:
         """
         pixel_col = pixel_x_idx + 1
         pixel_row = pixel_y_idx + 1
+        self._expand_matrix(
+            pixel_matrix=pixel_matrix, pixel_col=pixel_col, pixel_row=pixel_row
+        )
+        self._contract_matrix(
+            pixel_matrix=pixel_matrix, pixel_row=pixel_row, pixel_col=pixel_col
+        )
+
+    def _expand_matrix(self, pixel_matrix: PixelMatrix, pixel_col: int, pixel_row: int):
+        """
+        Orchestrates the expanding operations and checks of the PixelMatrix.
+
+        Args:
+            pixel_matrix (PixelMatrix): The PixelMatrix to check or resize.
+            pixel_cols (int): The required x-index of the pixel.
+            pixel_rows (int): The required y-index of the pixel.
+        """
         self._expand_matrix_cols(pixel_matrix=pixel_matrix, pixel_col=pixel_col)
         self._expand_matrix_rows(pixel_matrix=pixel_matrix, pixel_row=pixel_row)
+
+    def _contract_matrix(
+        self, pixel_matrix: PixelMatrix, pixel_col: int, pixel_row: int
+    ):
+        """
+        Orchestrates the contracting operations and checks of the PixelMatrix.
+
+        Args:
+            pixel_matrix (PixelMatrix): The PixelMatrix to check or resize.
+            pixel_x_idx (int): The required x-index of the pixel.
+            pixel_y_idx (int): The required y-index of the pixel.
+        """
         self._contract_matrix_rows(pixel_matrix=pixel_matrix, pixel_row=pixel_row)
         self._contract_matrix_cols(pixel_matrix=pixel_matrix, pixel_col=pixel_col)
 
