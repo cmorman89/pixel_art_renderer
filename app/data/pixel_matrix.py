@@ -43,7 +43,7 @@ class PixelMatrix:
             matrix_manager (Optional[PixelMatrixManager]): An optional PixelMatrixManager object.
                 Defaults to a basic PixelMatrixManager object if not set initially.
         """
-        self._matrix = [[1]]
+        self._matrix = [[None]]
         self._matrix_manager = (
             PixelMatrixManager() if matrix_manager is None else matrix_manager
         )
