@@ -142,3 +142,22 @@ class PixelMatrix:
             Cache into internal attribute if performance becomes a problem.
         """
         return len(self.matrix)
+
+    def __repr__(self):
+        """
+        Generates a 2D matrix of 2-letter abbreviations of each pixel in the PixelMatrix. `None`
+        is represented as a blank cell.
+        """
+        # Header row for column indices, with two spaces per column
+        header = "    " + "".join(f" {str(i).center(3)} " for i in range(len(self.matrix[0])))
+        
+        rows = [header]  # Start with the header row
+        
+        for i, row in enumerate(self.matrix):
+            # Build each row with the row index followed by the pixel data
+            row_repr = f"{str(i).rjust(3)} " + "".join(
+                f"[{pixel.color.name[:3]}]".center(5) if pixel is not None else "[   ]" for pixel in row
+            )
+            rows.append(row_repr)
+        
+        return "\n".join(rows)
