@@ -6,6 +6,7 @@ from typing import Optional
 from app.components.pixel import Pixel
 from app.renderers.utils.color import Color
 from app.renderers.terminal.terminal_renderer import TerminalRenderer
+from app.renderers.utils.run_buffer import RunBuffer
 
 
 class ColorTerminalRenderer(TerminalRenderer):
@@ -35,7 +36,7 @@ class ColorTerminalRenderer(TerminalRenderer):
             terminal_x_size (int): The scaling factor of horizontal terminal output. Defaults to 3.
         """
         super().__init__(terminal_x_scale)
-        self.__color_buffer: Optional[Color] = None
+        self._color_renderer_backbuffer: Optional[Color] = None
 
     def render_pixel(self, pixel: Pixel):
         """
@@ -49,11 +50,11 @@ class ColorTerminalRenderer(TerminalRenderer):
         Args:
             pixel (Pixel): The pixel to render to the terminal.
         """
-        self.__set_ansi_code(color=pixel.get_color())
-        self.__update_buffer(color=pixel.get_color())
+        self._set_ansi_code(color=pixel.get_color())
+        self._update_renderer_backbuffer(color=pixel.get_color())
         super().render_pixel(pixel)
 
-    def __set_ansi_code(self, color: Optional[Color] = None):
+    def _set_ansi_code(self, color: Optional[Color] = None):
         """
         Uses the color buffer to check if a new color is needed, and applies the color to the
         terminal if so.
@@ -61,18 +62,29 @@ class ColorTerminalRenderer(TerminalRenderer):
         Args:
             color (Optional[Color]): The color expected by the current pixel. Defaults to None.
         """
-        if self.__color_buffer is not color:
+        if self._color_renderer_backbuffer is not color:
             ansi_code = color.value if color else Color.RESET
             print(ansi_code, end="")
 
-    def __update_buffer(self, color: Optional[Color] = None):
+    def _update_renderer_backbuffer(self, color: Optional[Color] = None):
         """
         Caches the last used ANSI code to prevent reissue of duplicate codes.
 
         Args:
             color (Optional[Color]): The color expected by the current pixel. Defaults to None.
         """
-        self.__color_buffer = color
+        self._color_renderer_backbuffer = color
+
+    def _render_run_buffer(self, run_buffer: RunBuffer):
+        """
+        Renders a completed RunBuffer to the terminal in color. Responsible for setting the color
+        before delegating to Super to handle the rest of the rendering.
+
+        Args:
+            run_buffer (RunBuffer): The run buffer to render to the terminal.
+        """
+        self._set_ansi_code(run_buffer.color)
+        super()._render_run_buffer(run_buffer)
 
     @staticmethod
     def reset_terminal_format():

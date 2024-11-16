@@ -23,7 +23,7 @@ def test_initial_terminal_x_scale():
 
 def test_render_pixel(capsys):
     """Test the rendered output for a pixel"""
-    pixel = Pixel(x_pos=2, y_pos=3)
+    pixel = Pixel(pixel_x_idx=2, pixel_y_idx=3)
     term_renderer = TerminalRenderer()
     term_renderer.render_pixel(pixel)
     captured = capsys.readouterr()
