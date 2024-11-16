@@ -24,23 +24,26 @@ class Pixel(RenderableComponent):
     its color and position data.
 
     Attributes:
+        default_color (Color): The default color to return 
         position (Tuple[int, int]): The relative (x, y) position of the pixel within its parent.
         color (Color): The render color of the pixel, if supported.
     """
 
-    def __init__(self, x_pos: int = 0, y_pos: int = 0, color: Color = None):
-        """Initializes the pixel color and position, ensuring a default is set.
+    default_color = Color.RESET
+
+    def __init__(self, pixel_x_idx: int = 0, pixel_y_idx: int = 0, color: Color = None):
+        """Initializes the pixel copixel_y_idxlor and position, ensuring a default is set.
 
         Args:
-            x_pos (int): The relative x-coordinate of the pixel within its parent. Defaults to 0.
-            y_pos (int): The relative y-coordinate of the pixel within its parent. Defaults to 0,
+            pixel_x_idx (int): The relative x-coordinate of the pixel within its parent. Defaults to 0.
+            pixel_y_idx (int): The relative y-coordinate of the pixel within its parent. Defaults to 0,
             color (Color): The color of the pixel. Defaults to None.
         """
         self.position: Tuple[int, int] = (0, 0)
-        self.color = None
+        self.color = color if color else self.default_color
 
         # Set valid attributes
-        self._set_position(x_pos=x_pos, y_pos=y_pos)
+        self._set_position(pixel_x_idx=pixel_x_idx, pixel_y_idx=pixel_y_idx)
         self.set_color(color=color)
 
     def get_position(self) -> Tuple[int, int]:
@@ -59,7 +62,7 @@ class Pixel(RenderableComponent):
         """
         return self.color
 
-    def _set_position(self, x_pos: int = 0, y_pos: int = 0):
+    def _set_position(self, pixel_x_idx: int = 0, pixel_y_idx: int = 0):
         """Updates the relative position of the pixel to a non-negative integer.
 
         Args:
@@ -71,9 +74,9 @@ class Pixel(RenderableComponent):
             Future: Consider Observers with PixelMatrixManager so that Pixel alerts
             PixelMatrixManager, which then puts Pixel in updated matrix location?
         """
-        x_pos = max(0, x_pos)
-        y_pos = max(0, y_pos)
-        self.position = (x_pos, y_pos)
+        pixel_x_idx = max(0, pixel_x_idx)
+        pixel_y_idx = max(0, pixel_y_idx)
+        self.position = (pixel_x_idx, pixel_y_idx)
 
     def set_color(self, color: Optional[Color] = None):
         """Sets the color of the pixel.
@@ -84,7 +87,7 @@ class Pixel(RenderableComponent):
         Note:
             Color can be safely changed at any point.
         """
-        self.color = color
+        self.color = color if color else self.default_color
 
     def render(self, renderer: Renderer):
         """When visited by the renderer, calls Pixel's specific rendering method

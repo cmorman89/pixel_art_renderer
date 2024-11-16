@@ -40,7 +40,9 @@ class PixelMatrixManager:
         pixel_x_idx = pixel.get_position()[0]
         pixel_y_idx = pixel.get_position()[1]
         self._expand_matrix(
-            pixel_matrix=pixel_matrix, pixel_col=pixel_x_idx + 1, pixel_row=pixel_y_idx + 1
+            pixel_matrix=pixel_matrix,
+            pixel_col=pixel_x_idx + 1,
+            pixel_row=pixel_y_idx + 1,
         )
         pixel_matrix.matrix[pixel_y_idx][pixel_x_idx] = pixel
 

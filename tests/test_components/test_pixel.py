@@ -14,12 +14,12 @@ def test_pixel_construction():
     assert pixel.color is None
 
     # Valid construction args
-    pixel = Pixel(x_pos=5, y_pos=5, color=None)
+    pixel = Pixel(pixel_x_idx=5, pixel_y_idx=5, color=None)
     assert pixel.position == (5, 5)
     assert pixel.color is None
 
     # Negative x/y
-    pixel = Pixel(x_pos=-5, y_pos=-5, color=None)
+    pixel = Pixel(pixel_x_idx=-5, pixel_y_idx=-5, color=None)
     assert pixel.position == (0, 0)
     assert pixel.color is None
 
