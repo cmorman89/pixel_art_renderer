@@ -1647,6 +1647,7 @@ if __name__ == "__main__":
         (10, 31, "BLACK"),
         (11, 31, "BLACK"),
         (12, 31, "BLACK"),
+        (30, 31, "RESET")
     ]
     ls2 = [
         (10, 6, "BLACK"),
@@ -1938,6 +1939,7 @@ if __name__ == "__main__":
         (10, 31, "BLACK"),
         (11, 31, "BLACK"),
         (12, 31, "BLACK"),
+        (30, 31, "RESET")
     ]
     ls3 = [
         (4, 17, "BLACK"),
@@ -2194,27 +2196,40 @@ if __name__ == "__main__":
     #     color = Color[color.upper()] if color else None
     #     pixel = Pixel(x, y, color=color)
     #     pixel.render(color_renderer)
-    pixel_matrix = PixelMatrix(PixelMatrixManager())
+    pixel_matrix_1 = PixelMatrix(PixelMatrixManager())
+    pixel_matrix_2 = PixelMatrix(PixelMatrixManager())
+    pixel_matrix_3 = PixelMatrix(PixelMatrixManager())
     for x, y, color in ls1:
-        pixel_matrix.add_pixel(Pixel(x, y, color=Color[color.upper()]))
+        pixel_matrix_1.add_pixel(Pixel(x, y, color=Color[color.upper()]))
+    for x, y, color in ls2:
+        pixel_matrix_2.add_pixel(Pixel(x, y, color=Color[color.upper()]))
+    for x, y, color in ls3:
+        pixel_matrix_3.add_pixel(Pixel(x, y, color=Color[color.upper()]))
 
-    layer = Layer(name="Layer", pixel_matrix=pixel_matrix)
-
-    layer.render(TerminalRenderer())
+    layer1 = Layer(name="Layer 1", pixel_matrix=pixel_matrix_1)
+    layer2 = Layer(name="Layer 2", pixel_matrix=pixel_matrix_2)
+    layer3 = Layer(name="Layer 3", pixel_matrix=pixel_matrix_3)
+    
+    terminal_renderer = TerminalRenderer()
+    layer1.render(TerminalRenderer())
+    print()
+    print(pixel_matrix_1)
     time.sleep(1)
-    layer.render(ColorTerminalRenderer())
-    # infinite = True
-    # while infinite:
-    #     for i, scene in enumerate([ls1, ls2, ls3]):
-    #         print("\033[2J", end="")
-    #         for x, y, color in scene:
-    #             pixel = Pixel(x, y, color=Color[color.upper()])
-    #             pixel.render(color_renderer)
-    #         print("\n\n")
-    #         print("The Hero.".center(18 * terminal_x_scale))
-    #         print("\n\n")
-    #         if i == 0:
-    #             time.sleep(0.2)
-    #         time.sleep(0.1)
-    #     time.sleep(1)
-print(pixel_matrix)
+    print("\033[2J", end="\n")
+    infinite = True
+    while infinite:
+        for i, layer in enumerate([layer1, layer2, layer3, layer2, layer3, layer2, layer3]):
+            # for i, scene in enumerate([ls1, ls2, ls3]):
+            layer.render(color_renderer)
+            # print(layer.pixel_matrix)
+            print("\n\n")
+            print("The Hero.".center(18 * terminal_x_scale))
+            print("\n\n")
+            if i == 0:
+                time.sleep(0.2)
+            elif i == 6:
+                time.sleep(1)
+            else:
+                time.sleep(0.1)
+layer1.render(ColorTerminalRenderer())
+print(pixel_matrix_1)
