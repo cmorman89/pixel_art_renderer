@@ -58,3 +58,8 @@ class Color(Enum):
     BROWN = YELLOW
     GRAY = BRIGHT_BLACK
     PURPLE = BLUE
+
+    def __eq__(self, other):
+        if isinstance(other, Color):
+            return self.value == other.value
+        return False
