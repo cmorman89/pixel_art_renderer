@@ -10,11 +10,9 @@ Classes:
     attributes such as color and position.
 """
 
-import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Tuple
 from app.renderers.utils.color import Color
-from app.components.pixel import Pixel
 
 
 @dataclass
@@ -31,7 +29,7 @@ class RunBuffer:
 
     origin: Tuple[int, int] = (0, 0)
     buffer_data: str = ""
-    color: Color = field(default_factory=Pixel.default_color)
+    color: Color = None
 
     def add_to_buffer(self, data: str):
         """
@@ -50,19 +48,13 @@ class RunBuffer:
 
     def __repr__(self):
         """
-        Generates a representational view of the RunBuffer with new lines symbols as "N", spaces
-        as "_", and everything else as "#". RunBuffers are bound within [brackets].
+        Generates a representational view of the RunBuffer with spaces as "_", and printed
+        characters as "-". RunBuffers are bound within [brackets].
 
         Returns:
             str: The representational view of the RunBuffer.
         """
-        repr_buffer_data = re.sub(
-            r"(\n| )|.",
-            lambda match: (
-                "N\n"
-                if match.group(0) == "\n"
-                else "_" if match.group(0) == " " else "#"
-            ),
-            self.buffer_data,
-        )
-        return f"[{repr_buffer_data[2:]}]"
+
+        repr_buffer_data = self.buffer_data.replace(" ", "_").replace("█", "-")
+        truncate = (repr_buffer_data.count("\n") * 2) + 2
+        return f"[{repr_buffer_data[truncate:]}]"

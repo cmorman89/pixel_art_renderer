@@ -10,7 +10,9 @@ Classes:
 """
 
 from __future__ import annotations
+
 from typing import Optional, TYPE_CHECKING, Tuple
+
 from app.components.renderable_component import RenderableComponent
 from app.renderers.utils.color import Color
 
@@ -24,19 +26,19 @@ class Pixel(RenderableComponent):
     its color and position data.
 
     Attributes:
-        default_color (Color): The default color to return 
+        default_color (Color): The default Color object to use when not set (ie. None, etc).
         position (Tuple[int, int]): The relative (x, y) position of the pixel within its parent.
         color (Color): The render color of the pixel, if supported.
     """
 
-    default_color = Color.RESET
+    default_color: Color = Color.RESET
 
     def __init__(self, pixel_x_idx: int = 0, pixel_y_idx: int = 0, color: Color = None):
-        """Initializes the pixel copixel_y_idxlor and position, ensuring a default is set.
+        """Initializes the pixel color and position, ensuring a default is set.
 
         Args:
-            pixel_x_idx (int): The relative x-coordinate of the pixel within its parent. Defaults to 0.
-            pixel_y_idx (int): The relative y-coordinate of the pixel within its parent. Defaults to 0,
+            pixel_x_idx (int): The relative x-index of the pixel within its parent. Defaults to 0.
+            pixel_y_idx (int): The relative y-index of the pixel within its parent. Defaults to 0,
             color (Color): The color of the pixel. Defaults to None.
         """
         self.position: Tuple[int, int] = (0, 0)

@@ -19,8 +19,7 @@ if TYPE_CHECKING:
 
 
 class Renderer(ABC):
-    """
-    Abstract base class for all Renderer objects, which visit and generate an output for
+    """Abstract base class for all Renderer objects, which visit and generate an output for
     RenderableComponent objects.
 
     Methods:
@@ -30,8 +29,7 @@ class Renderer(ABC):
 
     @abstractmethod
     def render_pixel(self, pixel: Pixel):
-        """
-        Renders a single pixel to the renderer's display.
+        """Renders a single pixel to the renderer's display.
 
         Args:
             pixel (Pixel): The Pixel object to render.
@@ -39,8 +37,7 @@ class Renderer(ABC):
 
     @abstractmethod
     def render_pixelmatrix(self, pixel_matrix: PixelMatrix):
-        """
-        Renders a pixel matrix to to the renderer's display.
+        """Renders a pixel matrix to to the renderer's display.
 
         Args:
             pixel_matrix (PixelMatrix): The PixelMatrix object to render.

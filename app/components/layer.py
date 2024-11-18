@@ -9,14 +9,14 @@ from app.renderers.renderer import Renderer
 
 
 class Layer(RenderableComponent):
-    """
-    Holds a PixelMatrix object that represents the data in the layer, and holds metadata such as
+    """Holds a PixelMatrix object that represents the data in the layer, and holds metadata such as
     layer name and position.
 
     Attributes:
         name (str): The name of the layer. Defaults to "Untitled Layer"
         pixel_matrix (PixelMatrix): The PixelMatrix that holds the pixel data for the layer.
             Initializes a blank PixelMatrix by default.
+
 
     Methods:
         set_pixel_matrix: Replaces the layer's instance of a PixelMatrix with a new one.
@@ -28,8 +28,7 @@ class Layer(RenderableComponent):
     def __init__(
         self, name: Optional[str] = None, pixel_matrix: Optional[PixelMatrix] = None
     ):
-        """
-        Constructs a Layer object with a name and PixelMatrix object.
+        """Constructs a Layer object with a name and PixelMatrix object.
 
         Args:
             name (Optional[str]): The name of the layer. Defaults to "Untitled Layer"
@@ -40,8 +39,7 @@ class Layer(RenderableComponent):
         self.pixel_matrix = pixel_matrix if pixel_matrix else PixelMatrix()
 
     def update_name(self, new_name: Optional[str] = None):
-        """
-        Updates the layer's name to a given `str`. Defaults to "Untitled Layer"
+        """Updates the layer's name to a given `str`. Defaults to "Untitled Layer"
 
         Args:
             new_name (str): The new name of the layer. Defaults to "Untitled Layer"
@@ -49,8 +47,7 @@ class Layer(RenderableComponent):
         self.name = new_name if new_name else "Untitled Layer"
 
     def set_pixel_matrix(self, pixel_matrix: PixelMatrix):
-        """
-        Sets a PixelMatrix or replaces the existing PixelMatrix held by this layer.
+        """Sets a PixelMatrix or replaces the existing PixelMatrix held by this layer.
 
         Args:
             pixel_matrix (PixelMatrix): The new PixelMatrix object to store in the layer.
@@ -58,9 +55,8 @@ class Layer(RenderableComponent):
         self.pixel_matrix = pixel_matrix
 
     def __getattr__(self, pixel_matrix_method):
-        """
-        Dynamically passes any unknown method calls to the PixelMatrix object held in this layer.
-        Returns an error if the PixelMatrix does not implement the requested method.
+        """Dynamically passes any unknown method calls to the PixelMatrix object held in this
+        layer. Returns an error if the PixelMatrix does not implement the requested method.
 
         Args:
             pixel_matrix_method: The name and arguments to pass to the PixelMatrix object.

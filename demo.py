@@ -1647,7 +1647,7 @@ if __name__ == "__main__":
         (10, 31, "BLACK"),
         (11, 31, "BLACK"),
         (12, 31, "BLACK"),
-        (30, 31, "RESET")
+        (30, 31, "RESET"),
     ]
     ls2 = [
         (10, 6, "BLACK"),
@@ -1939,7 +1939,7 @@ if __name__ == "__main__":
         (10, 31, "BLACK"),
         (11, 31, "BLACK"),
         (12, 31, "BLACK"),
-        (30, 31, "RESET")
+        (30, 31, "RESET"),
     ]
     ls3 = [
         (4, 17, "BLACK"),
@@ -2209,7 +2209,7 @@ if __name__ == "__main__":
     layer1 = Layer(name="Layer 1", pixel_matrix=pixel_matrix_1)
     layer2 = Layer(name="Layer 2", pixel_matrix=pixel_matrix_2)
     layer3 = Layer(name="Layer 3", pixel_matrix=pixel_matrix_3)
-    
+
     terminal_renderer = TerminalRenderer()
     layer1.render(TerminalRenderer())
     print()
@@ -2218,7 +2218,9 @@ if __name__ == "__main__":
     print("\033[2J", end="\n")
     infinite = True
     while infinite:
-        for i, layer in enumerate([layer1, layer2, layer3, layer2, layer3, layer2, layer3]):
+        for i, layer in enumerate(
+            [layer1, layer2, layer3, layer2, layer3, layer2, layer3]
+        ):
             # for i, scene in enumerate([ls1, ls2, ls3]):
             layer.render(color_renderer)
             # print(layer.pixel_matrix)
