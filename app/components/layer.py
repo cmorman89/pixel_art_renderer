@@ -2,7 +2,7 @@
 Layer Component Module
 """
 
-from typing import Optional
+from typing import Optional, Tuple
 from app.components.renderable_component import RenderableComponent
 from app.data.pixel_matrix import PixelMatrix
 from app.renderers.renderer import Renderer
@@ -26,25 +26,38 @@ class Layer(RenderableComponent):
     """
 
     def __init__(
-        self, name: Optional[str] = None, pixel_matrix: Optional[PixelMatrix] = None
+        self,
+        name: Optional[str] = None,
+        pixel_matrix: Optional[PixelMatrix] = None,
+        position: Optional[Tuple[int, int]] = (0, 0),
     ):
         """Constructs a Layer object with a name and PixelMatrix object.
 
         Args:
             name (Optional[str]): The name of the layer. Defaults to "Untitled Layer"
             pixel_matrix (Optional[PixelMatrix]): The PixelMatrix that holds the pixel data for the
-            layer. Initializes a blank PixelMatrix by default.
+                layer. Initializes a blank PixelMatrix by default.
+            position (Optional[Tuple[int, int]])
         """
-        self.name = name if name else "Untitled Layer"
-        self.pixel_matrix = pixel_matrix if pixel_matrix else PixelMatrix()
+        self.name: str = name if name else "Untitled Layer"
+        self.pixel_matrix: PixelMatrix = pixel_matrix if pixel_matrix else PixelMatrix()
+        self.position: Tuple[int, int] = position if position else (0, 0)
 
     def update_name(self, new_name: Optional[str] = None):
-        """Updates the layer's name to a given `str`. Defaults to "Untitled Layer"
+        """Updates the layer's name to a given `str`.
 
         Args:
             new_name (str): The new name of the layer. Defaults to "Untitled Layer"
         """
         self.name = new_name if new_name else "Untitled Layer"
+
+    def update_position(self, position: Tuple[int, int]):
+        """Updates the position relative to its parent group or window.
+
+        Args:
+            position (Tuple[int, int]): The (x, y) coordinates for the origin point of the layer.
+        """
+        self.position = (max(0, position[0]), max(0, position[1]))
 
     def set_pixel_matrix(self, pixel_matrix: PixelMatrix):
         """Sets a PixelMatrix or replaces the existing PixelMatrix held by this layer.
