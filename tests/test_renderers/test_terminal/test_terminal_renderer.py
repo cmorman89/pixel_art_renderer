@@ -27,4 +27,4 @@ def test_render_pixel(capsys):
     term_renderer = TerminalRenderer()
     term_renderer.render_pixel(pixel)
     captured = capsys.readouterr()
-    assert captured.out == "\033[3;6H███\n"
+    assert captured.out == "\033[4;7H███\n"
