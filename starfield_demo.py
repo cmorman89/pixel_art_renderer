@@ -106,7 +106,9 @@ def calculate_fps(frame_times, current_time):
             last_5_avg_fps = instantaneous_fps
 
         time_diff_30 = frame_times_list[-1] - frame_times_list[0]
-        last_30_avg_fps = (len(frame_times_list) - 1) / time_diff_30 / 2if time_diff_30 > 0 else 0.0
+        last_30_avg_fps = (
+            (len(frame_times_list) - 1) / time_diff_30 / 2 if time_diff_30 > 0 else 0.0
+        )
     else:
         instantaneous_fps = 0.0
         last_5_avg_fps = 0.0
@@ -121,7 +123,8 @@ def calculate_fps_over_time(frame_times, current_time, time_window):
         valid_intervals = [
             (frame_times[i] - frame_times[i - 1])
             for i in range(1, len(frame_times))
-            if (frame_times[i] - frame_times[i - 1]) > 0.001  # Filter out very small intervals
+            if (frame_times[i] - frame_times[i - 1])
+            > 0.001  # Filter out very small intervals
         ]
         if valid_intervals:
             avg_fps = len(valid_intervals) / sum(valid_intervals)
@@ -141,7 +144,7 @@ def main():
     frame_times = deque()
     pixel_matrix = initialize_pixel_matrix(width, height, pixel_matrix_manager)
     previous_positions = []
-    fps_target = 1
+    fps_target = 30
     target_frame_time = 1.0 / fps_target
     infinite = True
 
@@ -182,7 +185,9 @@ def main():
                 list(frame_times), current_time, 30
             )
             print()
-            sys.stdout.write(f"Terminal:			{width} x {height} characters ({fps_target} FPS target)           \n")
+            sys.stdout.write(
+                f"Terminal:			{width} x {height} characters ({fps_target} FPS target)           \n"
+            )
             sys.stdout.write(f"Instantaneous FPS:		{instantaneous_fps:.2f}          \n")
             sys.stdout.write(
                 f"Average FPS (5 frames):		{last_5_avg_fps:.2f}          \n"
@@ -205,7 +210,7 @@ def main():
             frame_duration = end_time - start_time
             frame_times.append(end_time)
 
-            fps_target +=0.1
+            # fps_target +=0.1
             target_frame_time = 1.0 / fps_target
             sleep_duration = target_frame_time - frame_duration
             if sleep_duration > 0:
@@ -213,15 +218,21 @@ def main():
 
     except KeyboardInterrupt:
         # Clear screen and print final metrics
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system("cls" if os.name == "nt" else "clear")
         print("Starfield animation terminated.")
         print(f"Terminal:			{width} x {height} characters")
         print(f"Instantaneous FPS:		{instantaneous_fps:.2f}")
         print(f"Average FPS (5 frames):		{last_5_avg_fps:.2f}")
         print(f"Average FPS (30 frames):	{last_30_avg_fps:.2f}")
-        print(f"Average FPS (1 sec):		Avg: {avg_fps_1_sec:.2f}	Min: {min_fps_1_sec:.2f}	Max: {max_fps_1_sec:.2f}")
-        print(f"Average FPS (5 sec):		Avg: {avg_fps_5_sec:.2f}	Min: {min_fps_5_sec:.2f}	Max: {max_fps_5_sec:.2f}")
-        print(f"Average FPS (30 sec):		Avg: {avg_fps_30_sec:.2f}	Min: {min_fps_30_sec:.2f}	Max: {max_fps_30_sec:.2f}")
+        print(
+            f"Average FPS (1 sec):		Avg: {avg_fps_1_sec:.2f}	Min: {min_fps_1_sec:.2f}	Max: {max_fps_1_sec:.2f}"
+        )
+        print(
+            f"Average FPS (5 sec):		Avg: {avg_fps_5_sec:.2f}	Min: {min_fps_5_sec:.2f}	Max: {max_fps_5_sec:.2f}"
+        )
+        print(
+            f"Average FPS (30 sec):		Avg: {avg_fps_30_sec:.2f}	Min: {min_fps_30_sec:.2f}	Max: {max_fps_30_sec:.2f}"
+        )
 
 
 if __name__ == "__main__":
